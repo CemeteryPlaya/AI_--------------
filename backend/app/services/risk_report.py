@@ -59,26 +59,23 @@ async def generate_risk_report(asset_data: dict[str, Any]) -> dict[str, Any]:
     # ──────────────────────────────────────────────────────────────
     # TODO: Replace stub with actual LLM API call
     #
-    # Example with OpenAI:
-    #   from openai import AsyncOpenAI
-    #   client = AsyncOpenAI(api_key=settings.openai_api_key)
-    #   response = await client.chat.completions.create(
-    #       model="gpt-4",
-    #       messages=messages,
-    #       temperature=0.2,
+    # Example with Google Gemini:
+    #   import google.generativeai as genai
+    #   from app.config import get_settings
+    #   settings = get_settings()
+    #   genai.configure(api_key=settings.gemini_api_key)
+    #   model = genai.GenerativeModel(
+    #       model_name="gemini-1.5-flash",
+    #       system_instruction=SYSTEM_PROMPT,
     #   )
-    #   return {"report": response.choices[0].message.content}
-    #
-    # Example with Anthropic:
-    #   from anthropic import AsyncAnthropic
-    #   client = AsyncAnthropic(api_key=settings.anthropic_api_key)
-    #   response = await client.messages.create(
-    #       model="claude-sonnet-4-20250514",
-    #       system=SYSTEM_PROMPT,
-    #       messages=[messages[1]],
-    #       max_tokens=4096,
+    #   response = await model.generate_content_async(
+    #       contents=messages[1]["content"],
+    #       generation_config=genai.GenerationConfig(
+    #           temperature=0.2,
+    #           max_output_tokens=4096,
+    #       ),
     #   )
-    #   return {"report": response.content[0].text}
+    #   return {"report": response.text}
     # ──────────────────────────────────────────────────────────────
 
     asset_name = asset_data.get("name", "Unknown Asset")

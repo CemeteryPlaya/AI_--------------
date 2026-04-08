@@ -7,6 +7,7 @@ import LayerControl from "./LayerControl";
 import GeoLocationWidget from "./GeoLocationWidget";
 import CityAirGuide from "./CityAirGuide";
 import PinDetailPanel from "./PinDetailPanel";
+import ClimateChat from "./ClimateChat";
 import { useAppState, useAppActions } from "@/lib/store";
 import { useI18n } from "@/lib/i18n";
 
@@ -84,6 +85,7 @@ export default function Sidebar({ assets, selectedAsset, onAssetSelect }) {
         )}
 
         <GeoLocationWidget />
+        <ClimateChat />
         <CityAirGuide />
         <LayerControl />
         <TinyMLPanel />

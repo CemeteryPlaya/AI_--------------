@@ -17,14 +17,14 @@ class Settings(BaseSettings):
     s3_secret_key: str = "miniosecret2026"
     s3_bucket_name: str = "climate-data"
 
-    # Weather API
+    # OpenWeatherMap
     openweather_api_key: str = ""
+
+    # Google Gemini  ← задаётся через .env файл: GEMINI_API_KEY=...
+    gemini_api_key: str = ""
 
     # CORS
     cors_origins: str = "http://localhost:3000"
-
-    # OpenWeatherMap
-    openweather_api_key: str = ""
 
     # App
     app_name: str = "Climate Risk Intelligence API"

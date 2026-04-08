@@ -21,6 +21,7 @@ from app.api.report import router as report_router
 from app.api.local_stats import router as local_stats_router
 from app.api.realtime_layers import router as realtime_layers_router
 from app.api.city_guide import router as city_guide_router
+from app.api.chat import router as chat_router
 from app.services.risk_report import generate_risk_report
 
 # Configure logging
@@ -77,6 +78,7 @@ app.include_router(report_router)
 app.include_router(local_stats_router)
 app.include_router(realtime_layers_router)
 app.include_router(city_guide_router)
+app.include_router(chat_router)
 
 
 # ── Проверка работоспособности (Health Check) ────────────────────────────────
