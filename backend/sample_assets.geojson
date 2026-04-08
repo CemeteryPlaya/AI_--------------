@@ -1,0 +1,116 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Miami Warehouse District",
+        "asset_type": "warehouse",
+        "description": "Industrial warehouse complex in Miami-Dade County",
+        "owner": "Acme Logistics Corp",
+        "value_usd": 12500000,
+        "year_built": 2008,
+        "floor_area_sqm": 8500
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-80.1918, 25.7617],
+          [-80.1898, 25.7617],
+          [-80.1898, 25.7637],
+          [-80.1918, 25.7637],
+          [-80.1918, 25.7617]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Downtown Houston Office Tower",
+        "asset_type": "office",
+        "description": "Class A office building in Houston CBD",
+        "owner": "Gulf Real Estate Trust",
+        "value_usd": 45000000,
+        "year_built": 2015,
+        "floor_area_sqm": 22000,
+        "floors": 28
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-95.3698, 29.7604],
+          [-95.3688, 29.7604],
+          [-95.3688, 29.7614],
+          [-95.3698, 29.7614],
+          [-95.3698, 29.7604]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "San Francisco Data Center",
+        "asset_type": "data_center",
+        "description": "Tier III data center with seismic retrofit",
+        "owner": "Pacific Digital Infrastructure",
+        "value_usd": 78000000,
+        "year_built": 2019,
+        "floor_area_sqm": 5500
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-122.4194, 37.7749],
+          [-122.4174, 37.7749],
+          [-122.4174, 37.7769],
+          [-122.4194, 37.7769],
+          [-122.4194, 37.7749]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "New Orleans Port Facility",
+        "asset_type": "industrial",
+        "description": "Shipping and logistics terminal on the Mississippi",
+        "owner": "Delta Maritime Holdings",
+        "value_usd": 31000000,
+        "year_built": 2001,
+        "floor_area_sqm": 15000
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-90.0715, 29.9511],
+          [-90.0685, 29.9511],
+          [-90.0685, 29.9541],
+          [-90.0715, 29.9541],
+          [-90.0715, 29.9511]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Phoenix Solar Farm Operations Center",
+        "asset_type": "operations",
+        "description": "Solar farm control and maintenance facility",
+        "owner": "SunBelt Energy LLC",
+        "value_usd": 8500000,
+        "year_built": 2021,
+        "floor_area_sqm": 3200
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-112.0740, 33.4484],
+          [-112.0710, 33.4484],
+          [-112.0710, 33.4514],
+          [-112.0740, 33.4514],
+          [-112.0740, 33.4484]
+        ]]
+      }
+    }
+  ]
+}

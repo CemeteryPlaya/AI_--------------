@@ -1,0 +1,103 @@
+name: climate-risk
+
+services:
+  # ─── PostGIS Database ───────────────────────────────────────
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: climate_postgis
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - climate_net
+
+  # ─── MinIO (S3-compatible Object Storage) ───────────────────
+  minio:
+    image: minio/minio:latest
+    container_name: climate_minio
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - climate_net
+
+  # ─── FastAPI Backend ────────────────────────────────────────
+  backend:
+    image: climate-risk-backend:latest
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: climate_backend
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      DATABASE_URL_SYNC: ${DATABASE_URL_SYNC}
+      S3_ENDPOINT: ${S3_ENDPOINT}
+      S3_ACCESS_KEY: ${S3_ACCESS_KEY}
+      S3_SECRET_KEY: ${S3_SECRET_KEY}
+      S3_BUCKET_NAME: ${S3_BUCKET_NAME}
+      CORS_ORIGINS: ${CORS_ORIGINS}
+      OPENWEATHER_API_KEY: ${OPENWEATHER_API_KEY}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+      - ./tiny_flood_model.onnx:/models/tiny_flood_model.onnx:ro
+      - ./tiny_flood_model.onnx.data:/models/tiny_flood_model.onnx.data:ro
+      - ./data:/data:ro
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - climate_net
+    restart: unless-stopped
+
+  # ─── Next.js Frontend ──────────────────────────────────────
+  frontend:
+    image: climate-risk-frontend:latest
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: climate_frontend
+    environment:
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+    command: sh -c "npm ci && npx next dev --webpack --hostname 0.0.0.0"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      - backend
+    networks:
+      - climate_net
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  minio_data:
+
+networks:
+  climate_net:
+    driver: bridge
